@@ -63,10 +63,10 @@ body {
     stroke-width: 4px;
 }
 
-.gauge .tick.good, .gauge .tick.good line, .gauge .tick.danger, .gauge .tick.danger line {
+.gauge .tick.warn, .gauge .tick.warn line, .gauge .tick.good, .gauge .tick.good line, .gauge .tick.danger, .gauge .tick.danger line {
     stroke-width: 16px;
 }
-.gauge .tick.good text, .gauge .tick.good line, .gauge .tick.danger text, .gauge .tick.danger line {
+.gauge .tick.warn text, .gauge .tick.warn line, .gauge .tick.good text, .gauge .tick.good line, .gauge .tick.danger text, .gauge .tick.danger line {
     stroke-width: 1px;
 }
 .gauge .tick.good, .gauge .tick.good line {
@@ -76,6 +76,10 @@ body {
 .gauge .tick.danger, .gauge .tick.danger line {
     stroke: rgba(192, 57, 43,1.0);
     fill: rgba(192, 57, 43,1.0);
+}
+.gauge .tick.warn, .gauge .tick.warn line {
+    stroke: rgba(243, 156, 18,1.0);
+    fill: rgba(243, 156, 18,1.0);
 }
 
 .segdisplay .on {

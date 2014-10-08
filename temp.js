@@ -102,6 +102,9 @@ nicam.temp = (function ($) {
     for(var i=0; i<15; i++){
       ticksminor[i].classList.add("danger");
     }
+    for(var i=40; i<45; i++){
+      ticksminor[i].classList.add("warn");
+    }
     for(var i=35; i<40; i++){
       ticksminor[i].classList.add("good");
     }
