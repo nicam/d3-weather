@@ -140,11 +140,9 @@ nicam.temp = (function ($) {
       });
       
       x.domain(data.map(function(d) { return d.date; }));
-      // y.domain([0, d3.max(data, function(d) { return d.value; })]);
       var min = d3.min(data, function(d) { return d.value; });
       var max = d3.max(data, function(d) { return d.value; });
-      y.domain([ parseInt(min * 1.1), parseInt(max * 1.1)]);
-      //y.domain([0, 30]);
+      y.domain([ parseInt(min * 1.1), parseInt(max+1 * 1.1)]);
 
       svg.selectAll("g .y.axis")
           .call(yAxis);
