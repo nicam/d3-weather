@@ -81,7 +81,7 @@ nicam.temp = (function ($) {
 
     segDisplay = iopctrl.segdisplay()
       .width(80)
-      .digitCount(3)
+      .digitCount(4)
       .negative(true)
       .decimals(1);
       
