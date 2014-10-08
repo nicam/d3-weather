@@ -143,8 +143,8 @@ nicam.temp = (function ($) {
       // y.domain([0, d3.max(data, function(d) { return d.value; })]);
       var min = d3.min(data, function(d) { return d.value; });
       var max = d3.max(data, function(d) { return d.value; });
-      // y.domain([ parseInt(min * 1.1), parseInt(max * 1.1)]);
-      y.domain([0, 30]);
+      y.domain([ parseInt(min * 1.1), parseInt(max * 1.1)]);
+      //y.domain([0, 30]);
 
       svg.selectAll("g .y.axis")
           .call(yAxis);
@@ -163,7 +163,6 @@ nicam.temp = (function ($) {
       dataObj.enter().append("rect")
       .attr("height", 0)
       .attr("y", 210)
-      .attr("data-value", function(d) { return d.value; })
       .on("mouseover", function(){
         this.classList.add("over");
         var temp = parseFloat(this.getAttribute("data-value")).toFixed(1);
@@ -183,7 +182,8 @@ nicam.temp = (function ($) {
         .attr("width", x.rangeBand())
         .attr("class", function(d) { return "day q" + (8-color(d.value)) + "-9"; })
         .attr("y", function(d) { return y(d.value); })
-        .attr("height", function(d) { return height - y(d.value); });
+        .attr("height", function(d) { return height - y(d.value); })
+        .attr("data-value", function(d) { return d.value; });
       
       dataObj.exit()
       .transition().ease(['height', 'y', 'x', 'width'])
