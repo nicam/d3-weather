@@ -129,10 +129,11 @@ nicam.temp = (function ($) {
   function updateData(action) {
     if (action == '+' && cache.length > 0) {
       weatherData.list.push(cache.pop());
+      render(weatherData.list);
     } else if (action == '-' && weatherData.list.length > 0) {
       cache.push(weatherData.list.pop());
+      render(weatherData.list);
     }
-    render(weatherData.list);
   }
 
 
