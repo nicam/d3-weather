@@ -1,0 +1,171 @@
+body {
+    font: 16px Play;
+    min-width: 600px;
+}
+
+.axis {
+    font: 10px sans-serif;
+}
+
+.container {
+    width: 600px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.day{
+    transition: stroke 0.4s;
+    stroke: rgba(46, 204, 113, 0);
+  stroke-width: 3px;
+}
+.day.over {
+    stroke: rgba(46, 204, 113, 1);
+}
+
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.gauge .domain, .gauge .tick line {
+    stroke-width: 2px;
+    stroke: rgba(41, 128, 185,1.0);
+}
+
+.gauge line {
+    stroke: rgba(41, 128, 185,1.0);
+}
+
+.gauge .arc, .gauge .cursor {
+    opacity: 0;
+}
+
+.gauge .major {
+    stroke: rgba(41, 128, 185,1.0);
+    font-size: 26px;
+    font-family: 'Play', verdana, sans-serif;
+    font-weight: normal;
+}
+
+.gauge .indicator {
+    stroke: rgba(192, 57, 43,1.0);
+    fill: #000;
+    stroke-width: 4px;
+}
+
+.gauge .tick.good, .gauge .tick.good line, .gauge .tick.danger, .gauge .tick.danger line {
+    stroke-width: 16px;
+}
+.gauge .tick.good text, .gauge .tick.good line, .gauge .tick.danger text, .gauge .tick.danger line {
+    stroke-width: 1px;
+}
+.gauge .tick.good, .gauge .tick.good line {
+    stroke: rgba(39, 174, 96,1.0);
+    fill: rgba(39, 174, 96,1.0);
+}
+.gauge .tick.danger, .gauge .tick.danger line {
+    stroke: rgba(192, 57, 43,1.0);
+    fill: rgba(192, 57, 43,1.0);
+}
+
+.segdisplay .on {
+    fill: rgba(192, 57, 43,1.0);
+}
+
+.segdisplay .off {
+    fill: rgba(192, 57, 43,1.0);
+    opacity: 0.2;
+}
+
+#plus, #minus {
+    font-size: 40px;
+    cursor: pointer;
+    margin-top: 0.5em;
+    position: relative;
+    top: 0.1em;
+}
+
+#plus {
+    float: right;
+    margin-right: 1em;
+}
+
+#minus {
+    float: left;
+    margin-left: 1em;
+}
+
+#plus:hover, #minus:hover {
+    color: rgba(81, 203, 238, 1);
+}
+
+#date {
+    display: inline-block;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 15em;
+}
+
+input[type="text"], input[type="button"] {
+    font-size: 24px;
+    border-radius: 10px;
+    background: transparent;
+    border: solid 2px rgba(41, 128, 185,1.0);
+    padding: 0.3em;
+    --color: rgba(192, 57, 43,1.0);
+    width: 8em;
+    text-align: center;
+}
+
+input[type="button"] {
+    width: 11.2em;
+    cursor: pointer;
+}
+input[type="button"]:hover {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+input[type="text"][size="2"]{
+    width: 3em;
+}
+
+input[type="text"]:focus {
+    -webkit-animation: glow 1s infinite; /* Chrome, Safari, Opera */
+    animation: glow 1s infinite;
+    outline: 0;
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes glow {
+    0% {
+        border: solid 2px rgba(41, 128, 185,1.0);
+    }
+    50% {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    }
+    100% {
+        border: solid 2px rgba(41, 128, 185,1.0);
+    }
+}
+
+/* Standard syntax */
+@keyframes glow {
+     0% {
+        border: solid 2px rgba(41, 128, 185,1.0);
+    }
+    50% {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    }
+    100% {
+        border: solid 2px rgba(41, 128, 185,1.0);
+    }
+}

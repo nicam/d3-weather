@@ -3,52 +3,39 @@
 <meta charset="utf-8">
  
 <head>
-  <style>
-   body {
-     font-family: 'Open Sans', sans-serif;
-   }
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-  .axis {
-    font: 10px sans-serif;
-  }
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="colorbrewer.css"/>
+    <link type="text/css" rel="stylesheet" href="temp.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-  .container {
-    width: 600px;
-    height: 300px;
-    margin: 0 auto;
-  }
- 
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
- 
-  </style>
+    <script src="temp.js"></script>
+    <script>
+      jQuery().ready(function() {
+          nicam.temp.init();
+      });
+    </script>
 </head>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<link type="text/css" rel="stylesheet" href="colorbrewer.css"/>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<script src="temp.js"></script>
-<script>
-  jQuery().ready(function() {
-    nicam.temp.init();
-  });
-
-</script>
- 
 <body class="RdYlBu" style="text-align: center">
-<h1>Temperature Development</h1>
-<div class="container"></div>
-
-<input type="text" id="location" value="Winterthur" placeholder="Location"><input type="text" id="country" value="ch" size="2" maxlength="2">
-<br>
-<button onclick="nicam.temp.update()">Update</button>
-<button onclick="nicam.temp.updateData('+')">+</button>
-<button onclick="nicam.temp.updateData('-')">-</button>
-
- 
+  <div class="container">
+    <h1>Temperature Development</h1>
+    <input type="text" id="location" value="Winterthur" placeholder="Location">
+    <input type="text" id="country" value="ch" size="2" maxlength="2">
+    <br>
+    <input type="button" onclick="nicam.temp.update()" value="Update" />
+    <br>
+    <i id="plus" class="fa fa-plus" onclick="nicam.temp.updateData('+')"></i>
+    <i id="minus" class="fa fa-minus" onclick="nicam.temp.updateData('-')"></i>
+    <div id="barcart"></div>
+    <div id="speedometer"></div>
+  </div>
 </body>
 </html>
