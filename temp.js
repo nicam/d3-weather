@@ -34,22 +34,19 @@ nicam.temp = (function ($) {
       .ticks(10);
    
   var init = function () {
-    svg = d3.select("#barcart").append("svg")
+    svg = d3.select("#barchart").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    // Prepare xAxis
     svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
-      .selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", "-.55em")
-      .attr("transform", "rotate(-90)" );
 
+    // Prepare yAxis
     svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
@@ -61,7 +58,7 @@ nicam.temp = (function ($) {
       .text("Temp (C°)");
 
     svgGauge = d3.select("#speedometer")
-      .append("svg:svg")
+      .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom);
 
@@ -96,34 +93,26 @@ nicam.temp = (function ($) {
       .call(gauge);
 
     var ticksminor = document.querySelectorAll(".tick.minor");
-    for(var i=45; i<ticksminor.length; i++){
-      ticksminor[i].classList.add("danger");
-    }
-    for(var i=0; i<15; i++){
-      ticksminor[i].classList.add("danger");
-    }
-    for(var i=40; i<45; i++){
-      ticksminor[i].classList.add("warn");
-    }
-    for(var i=35; i<40; i++){
-      ticksminor[i].classList.add("good");
-    }
+    buildTicks(ticksminor, 'danger', 45, ticksminor.length);
+    buildTicks(ticksminor, 'danger', 0, 15);
+    buildTicks(ticksminor, 'warn', 40, 45);
+    buildTicks(ticksminor, 'good', 35, 40);
 
     var ticksmajor = document.querySelectorAll(".tick.major");
-    for(var i=0; i<=3; i++){
-      ticksmajor[i].classList.add("danger");
-    }
-    for(var i=9; i<ticksmajor.length; i++){
-      ticksmajor[i].classList.add("danger");
-    }
-    for(var i=7; i<=8; i++){
-      ticksmajor[i].classList.add("good");
-    }
+    buildTicks(ticksmajor, 'danger', 0, 3);
+    buildTicks(ticksmajor, 'danger', 9, ticksmajor.length);
+    buildTicks(ticksmajor, 'good', 7, 8);
     
     segDisplay.value(0);
     gauge.value(0);
     
     update();
+  };
+
+  function buildTicks(ticks, color, start, end) {
+    for(var i=start; i< end; i++){
+      ticks[i].classList.add(color);
+    }
   }
 
   function updateData(action) {
@@ -140,13 +129,15 @@ nicam.temp = (function ($) {
   function render(data) {
       data.forEach(function(d) {
         d.date = parseDate(d.dt_txt);
+        // Convert from Kelvin to Degree Celsius
         d.value = d.main.temp - 273.15;
       });
       
       x.domain(data.map(function(d) { return d.date; }));
       var min = d3.min(data, function(d) { return d.value; });
       var max = d3.max(data, function(d) { return d.value; });
-      y.domain([ parseInt(min * 1.1), parseInt(max+1 * 1.1)]);
+
+      y.domain([ parseInt(min-1), parseInt(max+5)]);
 
       svg.selectAll("g .y.axis")
           .call(yAxis);
@@ -162,6 +153,8 @@ nicam.temp = (function ($) {
         .attr("transform", "rotate(-90)" );
 
       var dataObj = svg.selectAll("rect").data(data);
+
+      // Build new rects if necessary
       dataObj.enter().append("rect")
       .attr("height", 0)
       .attr("y", 210)
@@ -176,8 +169,7 @@ nicam.temp = (function ($) {
       });
       color.domain([0, 30]);
 
-      // Add temperature label!
-
+      // Update Chart Data
       dataObj
         .transition().ease(['height', 'y', 'x', 'width'])
         .attr("x", function(d) { return x(d.date); })
@@ -187,6 +179,7 @@ nicam.temp = (function ($) {
         .attr("height", function(d) { return height - y(d.value); })
         .attr("data-value", function(d) { return d.value; });
       
+      // Remove elements
       dataObj.exit()
       .transition().ease(['height', 'y', 'x', 'width'])
       .attr("height", 0)
@@ -202,7 +195,7 @@ nicam.temp = (function ($) {
       weatherData = data;
       render(weatherData.list);
     });
-  }
+  };
 
   var getWeather = function (location, country, callback) {
     var weather = "http://api.openweathermap.org/data/2.5/forecast?q="+location+","+country+"&mode=json";
@@ -211,7 +204,7 @@ nicam.temp = (function ($) {
       url: weather,
       success: callback
     });
-  }
+  };
 
   return {
     getWeather: getWeather,
